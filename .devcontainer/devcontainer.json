@@ -5,11 +5,15 @@
 		"context": "..",
 		"args": { 
 			"VARIANT": "3.8",
-			// Options
-			"INSTALL_NODE": "false",
-			"NODE_VERSION": "lts/*"
 		}
 	},
+
+	"runArgs": ["--init"],
+	"mounts": [ 
+		"source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
+		"source=k3d-bashhistory,target=/commandhistory,type=volume"
+	],
+	"overrideCommand": false,
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
