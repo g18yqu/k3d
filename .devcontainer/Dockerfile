@@ -14,8 +14,8 @@ RUN apt-get update \
     && rm -rf /tmp/library-scripts \
     && mkdir /commandhistory \
     && touch /commandhistory/.zsh_history \
-    && chown -R vscode /commandhistory
-
+    && chown -R vscode /commandhistory \
+    && chsh --shell /usr/bin/zsh vscode
 
 ENTRYPOINT ["/usr/local/share/docker-init.sh"]
 CMD ["sleep", "infinity"]
