@@ -25,7 +25,9 @@ istio: $(ISTIO_DIR)
 	helm install --namespace istio-system istio-ingress $(ISTIO_DIR)/manifests/charts/gateways/istio-ingress \
     --set global.hub="docker.io/istio" --set global.tag="$(ISTIO_VERSION)" && \
 	helm install --namespace istio-system istio-egress $(ISTIO_DIR)/manifests/charts/gateways/istio-egress \
-    --set global.hub="docker.io/istio" --set global.tag="$(ISTIO_VERSION)"
+    --set global.hub="docker.io/istio" --set global.tag="$(ISTIO_VERSION)" && \
+	kubectl label namespace default istio-injection=enabled
+	
 
 istio-demo:
 	$(QUIET)kubectl apply -f $(ISTIO_DIR)/samples/bookinfo/platform/kube/bookinfo.yaml && \
@@ -39,3 +41,6 @@ delete:
 
 delete-all:
 	$(QUIET)k3d cluster delete --all
+
+clean-up:
+	$(QUIET)-rm -rf $(ISTIO_DIR)
