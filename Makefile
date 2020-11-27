@@ -21,11 +21,11 @@ $(ISTIO_DIR):
 istio: $(ISTIO_DIR)
 	$(QUIET)helm install --create-namespace --namespace istio-system istio-base $(ISTIO_DIR)/manifests/charts/base && \
 	helm install --namespace istio-system istiod $(ISTIO_DIR)/manifests/charts/istio-control/istio-discovery \
-    --set global.hub="docker.io/istio" --set global.tag="1.8.0" && \
+    --set global.hub="docker.io/istio" --set global.tag="$(ISTIO_VERSION)" && \
 	helm install --namespace istio-system istio-ingress $(ISTIO_DIR)/manifests/charts/gateways/istio-ingress \
-    --set global.hub="docker.io/istio" --set global.tag="1.8.0" && \
+    --set global.hub="docker.io/istio" --set global.tag="$(ISTIO_VERSION)" && \
 	helm install --namespace istio-system istio-egress $(ISTIO_DIR)/manifests/charts/gateways/istio-egress \
-    --set global.hub="docker.io/istio" --set global.tag="1.8.0"
+    --set global.hub="docker.io/istio" --set global.tag="$(ISTIO_VERSION)"
 
 istio-demo:
 	$(QUIET)kubectl apply -f $(ISTIO_DIR)/samples/bookinfo/platform/kube/bookinfo.yaml && \
